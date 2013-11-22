@@ -3140,7 +3140,7 @@ raml-console article#raml-console .resource .summary,
 raml-console article#raml-console .resource .summary .path,
 #raml-console-loader .resource .summary .path {
   float: left;
-  margin: 10px 0 10px 15px;
+  margin: 14px 0 14px 15px;
 }
 raml-console article#raml-console .resource .summary .path span:last-child,
 #raml-console-loader .resource .summary .path span:last-child {
@@ -3175,7 +3175,7 @@ raml-console article#raml-console .resource .methods,
 raml-console article#raml-console .resource .methods li,
 #raml-console-loader .resource .methods li {
   float: right;
-  line-height: 23px;
+  line-height: 22px;
   margin-right: 5px;
 }
 raml-console article#raml-console ul.modifiers,
@@ -3189,19 +3189,19 @@ raml-console article#raml-console ul.modifiers li,
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
   font-size: 11px;
   padding: 0px 6px;
-  margin-top: 1px;
-  margin-right: 1px;
+  margin-bottom: 3px;
+  margin-right: 3px;
   line-height: 18px;
 }
 raml-console article#raml-console ul.modifiers li.resource-type,
 #raml-console-loader ul.modifiers li.resource-type {
-  background-color: #a2a4aa;
+  background-color: #bbbbbb;
   color: #f3f3f6;
 }
 raml-console article#raml-console ul.modifiers li.trait,
 #raml-console-loader ul.modifiers li.trait {
   background-color: #dee0e7;
-  color: #96989f;
+  color: #a2a4aa;
 }
 raml-console article#raml-console .get,
 #raml-console-loader .get {
@@ -3412,12 +3412,12 @@ raml-console article#raml-console .connect.method-summary:hover,
 }
 raml-console article#raml-console .method-name,
 #raml-console-loader .method-name {
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   color: #f3f3f6;
   text-align: center;
   display: inline-block;
-  width: 64px;
+  width: 60px;
 }
 raml-console article#raml-console .method,
 #raml-console-loader .method {
