@@ -5,7 +5,13 @@
 
     var link = function ($scope, $el, $attrs, controller) {
       ramlParserWrapper.onParseSuccess(function(raml) {
-        $scope.api = controller.api = RAML.Inspector.create(raml);
+        var inspected = RAML.Inspector.create(raml);
+
+        if ($scope.api) {
+          RAML.Inspector.merge(inspected, $scope.api);
+        } else {
+          $scope.api = controller.api = inspected;
+        }
       });
 
       ramlParserWrapper.onParseError(function(error) {

@@ -6,6 +6,38 @@ RAML.Inspector = (function() {
 
   var METHOD_ORDERING = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'];
 
+  // 1) copy common properties and new properties from the new object to the existing object
+  // 2) remove properties from the existing
+  function mergeObjects(source, target) {
+    var targetKeys = Object.keys(target),
+        sourceKeys = Object.keys(source);
+
+    var removedKeys = targetKeys.filter(function(targetKey) {
+      return !sourceKeys.some(function(sourceKey) {
+        return sourceKey === targetKey;
+      });
+    });
+
+    removedKeys.forEach(function(key) {
+      delete target[key];
+    });
+
+    sourceKeys.forEach(function(key) {
+      var sourceValue = source[key];
+      var targetValue = target[key];
+      var sourceValueMissing = sourceValue === null || sourceValue === undefined;
+      var targetValueMissing = targetValue === null || targetValue === undefined;
+      var sourceValueIsNotObject = typeof sourceValue !== 'object';
+
+
+      if (sourceValueIsNotObject || sourceValueMissing || targetValueMissing) {
+        target[key] = sourceValue;
+      } else {
+        mergeObjects(sourceValue, targetValue);
+      }
+    });
+  }
+
   function extendMethod(method, securitySchemes) {
     securitySchemes = securitySchemes || [];
 
@@ -99,6 +131,10 @@ RAML.Inspector = (function() {
     api.resourceGroups = groupResources(api.resources);
 
     return api;
+  };
+
+  exports.merge = function(source, target) {
+    mergeObjects(source, target);
   };
 
   return exports;
