@@ -16,15 +16,21 @@
   var controller = function($scope) {
     $scope.documentation = this;
 
+    this.resource = $scope.resource;
     this.method = $scope.method;
 
-    var hasParameters = !!($scope.resource.uriParameters || this.method.queryParameters ||
-      this.method.headers || hasFormParameters(this.method));
-
-    this.hasRequestDocumentation = hasParameters || !isEmpty(this.method.body);
     this.hasResponseDocumentation = !isEmpty(this.method.responses);
     this.hasTryIt = !!$scope.api.baseUri;
   };
+
+  controller.prototype.hasParameters = function() {
+    return !!(this.resource.uriParameters || this.method.queryParameters ||
+      this.method.headers || hasFormParameters(this.method));
+  };
+
+  controller.prototype.hasRequestDocumentation = function() {
+    return this.hasParameters() || !isEmpty(this.method.body);
+  }
 
   controller.prototype.traits = function() {
     return (this.method.is || []);
