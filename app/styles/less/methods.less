@@ -1,20 +1,43 @@
 .method-color(@color) {
-  background-color: tint(@color, 15%);
-  border-color:     tint(@color, 15%);
+  background-color: white;
+  border: 1px solid @color;
 
-  &:hover {
-    background-color: @color;
+  &.method-name {
+    color: @color;
   }
 
+  &.expanded {
+    .method-name, .filler {
+      background-color: @color;
+      color: white;
+    }
+  }
+
+  &.expanded.method-name:hover {
+    background-color: @color;
+    color: white;
+  }
+
+  // background-color: tint(@color, 15%);
+  // border-color:     tint(@color, 15%);
+  box-sizing: border-box;
+  &.method-name:hover {
+    background-color: @color;
+    color: white;
+  }
+
+  .description {
+    color: #333;
+  }
   &.method {
     .method-name:hover, .filler:hover {
-      background-color: tint(@color, 15%);
+      // background-color: tint(@color, 15%);
     }
   }
 
   &.method-summary {
     background-color: @veryLightGray;
-
+    border: none;
     &:hover {
       background-color: tint(@color, 90%);
     };
@@ -34,7 +57,6 @@
 .method-name {
   font-size: 10px;
   text-transform: uppercase;
-  color: @veryLightGray;
   text-align: center;
   display: inline-block;
 
@@ -73,7 +95,7 @@
 
   .filler {
     display: block;
-    height: 30px;
+    height: 32px;
     width: auto;
   }
 
@@ -82,8 +104,8 @@
     border: 1px solid @lightGray;
     border-left: none;
     border-radius: 0 5px 5px 0;
-    height: 28px;
-    line-height: 28px;
+    height: 30px;
+    line-height: 30px;
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -101,7 +123,7 @@
     top: 0;
     right: 10px;
     color: @lightGray;
-    line-height: 30px;
+    line-height: 32px;
     font-size: 19px;
   }
 

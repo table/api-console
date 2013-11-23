@@ -3205,22 +3205,39 @@ raml-console article#raml-console ul.modifiers li.trait,
 }
 raml-console article#raml-console .get,
 #raml-console-loader .get {
-  background-color: #7ab5e6;
-  border-color: #7ab5e6;
+  background-color: white;
+  border: 1px solid #63a8e2;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .get:hover,
-#raml-console-loader .get:hover {
+raml-console article#raml-console .get.method-name,
+#raml-console-loader .get.method-name {
+  color: #63a8e2;
+}
+raml-console article#raml-console .get.expanded .method-name,
+#raml-console-loader .get.expanded .method-name,
+raml-console article#raml-console .get.expanded .filler,
+#raml-console-loader .get.expanded .filler {
   background-color: #63a8e2;
+  color: white;
 }
-raml-console article#raml-console .get.method .method-name:hover,
-#raml-console-loader .get.method .method-name:hover,
-raml-console article#raml-console .get.method .filler:hover,
-#raml-console-loader .get.method .filler:hover {
-  background-color: #7ab5e6;
+raml-console article#raml-console .get.expanded.method-name:hover,
+#raml-console-loader .get.expanded.method-name:hover {
+  background-color: #63a8e2;
+  color: white;
+}
+raml-console article#raml-console .get.method-name:hover,
+#raml-console-loader .get.method-name:hover {
+  background-color: #63a8e2;
+  color: white;
+}
+raml-console article#raml-console .get .description,
+#raml-console-loader .get .description {
+  color: #333;
 }
 raml-console article#raml-console .get.method-summary,
 #raml-console-loader .get.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .get.method-summary:hover,
 #raml-console-loader .get.method-summary:hover {
@@ -3228,22 +3245,39 @@ raml-console article#raml-console .get.method-summary:hover,
 }
 raml-console article#raml-console .post,
 #raml-console-loader .post {
-  background-color: #82c791;
-  border-color: #82c791;
+  background-color: white;
+  border: 1px solid #6cbd7d;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .post:hover,
-#raml-console-loader .post:hover {
+raml-console article#raml-console .post.method-name,
+#raml-console-loader .post.method-name {
+  color: #6cbd7d;
+}
+raml-console article#raml-console .post.expanded .method-name,
+#raml-console-loader .post.expanded .method-name,
+raml-console article#raml-console .post.expanded .filler,
+#raml-console-loader .post.expanded .filler {
   background-color: #6cbd7d;
+  color: white;
 }
-raml-console article#raml-console .post.method .method-name:hover,
-#raml-console-loader .post.method .method-name:hover,
-raml-console article#raml-console .post.method .filler:hover,
-#raml-console-loader .post.method .filler:hover {
-  background-color: #82c791;
+raml-console article#raml-console .post.expanded.method-name:hover,
+#raml-console-loader .post.expanded.method-name:hover {
+  background-color: #6cbd7d;
+  color: white;
+}
+raml-console article#raml-console .post.method-name:hover,
+#raml-console-loader .post.method-name:hover {
+  background-color: #6cbd7d;
+  color: white;
+}
+raml-console article#raml-console .post .description,
+#raml-console-loader .post .description {
+  color: #333;
 }
 raml-console article#raml-console .post.method-summary,
 #raml-console-loader .post.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .post.method-summary:hover,
 #raml-console-loader .post.method-summary:hover {
@@ -3251,22 +3285,39 @@ raml-console article#raml-console .post.method-summary:hover,
 }
 raml-console article#raml-console .put,
 #raml-console-loader .put {
-  background-color: #43c4cd;
-  border-color: #43c4cd;
+  background-color: white;
+  border: 1px solid #22bac4;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .put:hover,
-#raml-console-loader .put:hover {
+raml-console article#raml-console .put.method-name,
+#raml-console-loader .put.method-name {
+  color: #22bac4;
+}
+raml-console article#raml-console .put.expanded .method-name,
+#raml-console-loader .put.expanded .method-name,
+raml-console article#raml-console .put.expanded .filler,
+#raml-console-loader .put.expanded .filler {
   background-color: #22bac4;
+  color: white;
 }
-raml-console article#raml-console .put.method .method-name:hover,
-#raml-console-loader .put.method .method-name:hover,
-raml-console article#raml-console .put.method .filler:hover,
-#raml-console-loader .put.method .filler:hover {
-  background-color: #43c4cd;
+raml-console article#raml-console .put.expanded.method-name:hover,
+#raml-console-loader .put.expanded.method-name:hover {
+  background-color: #22bac4;
+  color: white;
+}
+raml-console article#raml-console .put.method-name:hover,
+#raml-console-loader .put.method-name:hover {
+  background-color: #22bac4;
+  color: white;
+}
+raml-console article#raml-console .put .description,
+#raml-console-loader .put .description {
+  color: #333;
 }
 raml-console article#raml-console .put.method-summary,
 #raml-console-loader .put.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .put.method-summary:hover,
 #raml-console-loader .put.method-summary:hover {
@@ -3274,22 +3325,39 @@ raml-console article#raml-console .put.method-summary:hover,
 }
 raml-console article#raml-console .patch,
 #raml-console-loader .patch {
-  background-color: #d5a36f;
-  border-color: #d5a36f;
+  background-color: white;
+  border: 1px solid #cd9356;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .patch:hover,
-#raml-console-loader .patch:hover {
+raml-console article#raml-console .patch.method-name,
+#raml-console-loader .patch.method-name {
+  color: #cd9356;
+}
+raml-console article#raml-console .patch.expanded .method-name,
+#raml-console-loader .patch.expanded .method-name,
+raml-console article#raml-console .patch.expanded .filler,
+#raml-console-loader .patch.expanded .filler {
   background-color: #cd9356;
+  color: white;
 }
-raml-console article#raml-console .patch.method .method-name:hover,
-#raml-console-loader .patch.method .method-name:hover,
-raml-console article#raml-console .patch.method .filler:hover,
-#raml-console-loader .patch.method .filler:hover {
-  background-color: #d5a36f;
+raml-console article#raml-console .patch.expanded.method-name:hover,
+#raml-console-loader .patch.expanded.method-name:hover {
+  background-color: #cd9356;
+  color: white;
+}
+raml-console article#raml-console .patch.method-name:hover,
+#raml-console-loader .patch.method-name:hover {
+  background-color: #cd9356;
+  color: white;
+}
+raml-console article#raml-console .patch .description,
+#raml-console-loader .patch .description {
+  color: #333;
 }
 raml-console article#raml-console .patch.method-summary,
 #raml-console-loader .patch.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .patch.method-summary:hover,
 #raml-console-loader .patch.method-summary:hover {
@@ -3297,22 +3365,39 @@ raml-console article#raml-console .patch.method-summary:hover,
 }
 raml-console article#raml-console .delete,
 #raml-console-loader .delete {
-  background-color: #d97b78;
-  border-color: #d97b78;
+  background-color: white;
+  border: 1px solid #d26460;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .delete:hover,
-#raml-console-loader .delete:hover {
+raml-console article#raml-console .delete.method-name,
+#raml-console-loader .delete.method-name {
+  color: #d26460;
+}
+raml-console article#raml-console .delete.expanded .method-name,
+#raml-console-loader .delete.expanded .method-name,
+raml-console article#raml-console .delete.expanded .filler,
+#raml-console-loader .delete.expanded .filler {
   background-color: #d26460;
+  color: white;
 }
-raml-console article#raml-console .delete.method .method-name:hover,
-#raml-console-loader .delete.method .method-name:hover,
-raml-console article#raml-console .delete.method .filler:hover,
-#raml-console-loader .delete.method .filler:hover {
-  background-color: #d97b78;
+raml-console article#raml-console .delete.expanded.method-name:hover,
+#raml-console-loader .delete.expanded.method-name:hover {
+  background-color: #d26460;
+  color: white;
+}
+raml-console article#raml-console .delete.method-name:hover,
+#raml-console-loader .delete.method-name:hover {
+  background-color: #d26460;
+  color: white;
+}
+raml-console article#raml-console .delete .description,
+#raml-console-loader .delete .description {
+  color: #333;
 }
 raml-console article#raml-console .delete.method-summary,
 #raml-console-loader .delete.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .delete.method-summary:hover,
 #raml-console-loader .delete.method-summary:hover {
@@ -3320,22 +3405,39 @@ raml-console article#raml-console .delete.method-summary:hover,
 }
 raml-console article#raml-console .head,
 #raml-console-loader .head {
-  background-color: #ad6fa4;
-  border-color: #ad6fa4;
+  background-color: white;
+  border: 1px solid #9f5594;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .head:hover,
-#raml-console-loader .head:hover {
+raml-console article#raml-console .head.method-name,
+#raml-console-loader .head.method-name {
+  color: #9f5594;
+}
+raml-console article#raml-console .head.expanded .method-name,
+#raml-console-loader .head.expanded .method-name,
+raml-console article#raml-console .head.expanded .filler,
+#raml-console-loader .head.expanded .filler {
   background-color: #9f5594;
+  color: white;
 }
-raml-console article#raml-console .head.method .method-name:hover,
-#raml-console-loader .head.method .method-name:hover,
-raml-console article#raml-console .head.method .filler:hover,
-#raml-console-loader .head.method .filler:hover {
-  background-color: #ad6fa4;
+raml-console article#raml-console .head.expanded.method-name:hover,
+#raml-console-loader .head.expanded.method-name:hover {
+  background-color: #9f5594;
+  color: white;
+}
+raml-console article#raml-console .head.method-name:hover,
+#raml-console-loader .head.method-name:hover {
+  background-color: #9f5594;
+  color: white;
+}
+raml-console article#raml-console .head .description,
+#raml-console-loader .head .description {
+  color: #333;
 }
 raml-console article#raml-console .head.method-summary,
 #raml-console-loader .head.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .head.method-summary:hover,
 #raml-console-loader .head.method-summary:hover {
@@ -3343,22 +3445,39 @@ raml-console article#raml-console .head.method-summary:hover,
 }
 raml-console article#raml-console .options,
 #raml-console-loader .options {
-  background-color: #afc741;
-  border-color: #afc741;
+  background-color: white;
+  border: 1px solid #a1bd1f;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .options:hover,
-#raml-console-loader .options:hover {
+raml-console article#raml-console .options.method-name,
+#raml-console-loader .options.method-name {
+  color: #a1bd1f;
+}
+raml-console article#raml-console .options.expanded .method-name,
+#raml-console-loader .options.expanded .method-name,
+raml-console article#raml-console .options.expanded .filler,
+#raml-console-loader .options.expanded .filler {
   background-color: #a1bd1f;
+  color: white;
 }
-raml-console article#raml-console .options.method .method-name:hover,
-#raml-console-loader .options.method .method-name:hover,
-raml-console article#raml-console .options.method .filler:hover,
-#raml-console-loader .options.method .filler:hover {
-  background-color: #afc741;
+raml-console article#raml-console .options.expanded.method-name:hover,
+#raml-console-loader .options.expanded.method-name:hover {
+  background-color: #a1bd1f;
+  color: white;
+}
+raml-console article#raml-console .options.method-name:hover,
+#raml-console-loader .options.method-name:hover {
+  background-color: #a1bd1f;
+  color: white;
+}
+raml-console article#raml-console .options .description,
+#raml-console-loader .options .description {
+  color: #333;
 }
 raml-console article#raml-console .options.method-summary,
 #raml-console-loader .options.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .options.method-summary:hover,
 #raml-console-loader .options.method-summary:hover {
@@ -3366,22 +3485,39 @@ raml-console article#raml-console .options.method-summary:hover,
 }
 raml-console article#raml-console .trace,
 #raml-console-loader .trace {
-  background-color: #7acbf1;
-  border-color: #7acbf1;
+  background-color: white;
+  border: 1px solid #63c2ee;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .trace:hover,
-#raml-console-loader .trace:hover {
+raml-console article#raml-console .trace.method-name,
+#raml-console-loader .trace.method-name {
+  color: #63c2ee;
+}
+raml-console article#raml-console .trace.expanded .method-name,
+#raml-console-loader .trace.expanded .method-name,
+raml-console article#raml-console .trace.expanded .filler,
+#raml-console-loader .trace.expanded .filler {
   background-color: #63c2ee;
+  color: white;
 }
-raml-console article#raml-console .trace.method .method-name:hover,
-#raml-console-loader .trace.method .method-name:hover,
-raml-console article#raml-console .trace.method .filler:hover,
-#raml-console-loader .trace.method .filler:hover {
-  background-color: #7acbf1;
+raml-console article#raml-console .trace.expanded.method-name:hover,
+#raml-console-loader .trace.expanded.method-name:hover {
+  background-color: #63c2ee;
+  color: white;
+}
+raml-console article#raml-console .trace.method-name:hover,
+#raml-console-loader .trace.method-name:hover {
+  background-color: #63c2ee;
+  color: white;
+}
+raml-console article#raml-console .trace .description,
+#raml-console-loader .trace .description {
+  color: #333;
 }
 raml-console article#raml-console .trace.method-summary,
 #raml-console-loader .trace.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .trace.method-summary:hover,
 #raml-console-loader .trace.method-summary:hover {
@@ -3389,22 +3525,39 @@ raml-console article#raml-console .trace.method-summary:hover,
 }
 raml-console article#raml-console .connect,
 #raml-console-loader .connect {
-  background-color: #d4b838;
-  border-color: #d4b838;
+  background-color: white;
+  border: 1px solid #ccac15;
+  box-sizing: border-box;
 }
-raml-console article#raml-console .connect:hover,
-#raml-console-loader .connect:hover {
+raml-console article#raml-console .connect.method-name,
+#raml-console-loader .connect.method-name {
+  color: #ccac15;
+}
+raml-console article#raml-console .connect.expanded .method-name,
+#raml-console-loader .connect.expanded .method-name,
+raml-console article#raml-console .connect.expanded .filler,
+#raml-console-loader .connect.expanded .filler {
   background-color: #ccac15;
+  color: white;
 }
-raml-console article#raml-console .connect.method .method-name:hover,
-#raml-console-loader .connect.method .method-name:hover,
-raml-console article#raml-console .connect.method .filler:hover,
-#raml-console-loader .connect.method .filler:hover {
-  background-color: #d4b838;
+raml-console article#raml-console .connect.expanded.method-name:hover,
+#raml-console-loader .connect.expanded.method-name:hover {
+  background-color: #ccac15;
+  color: white;
+}
+raml-console article#raml-console .connect.method-name:hover,
+#raml-console-loader .connect.method-name:hover {
+  background-color: #ccac15;
+  color: white;
+}
+raml-console article#raml-console .connect .description,
+#raml-console-loader .connect .description {
+  color: #333;
 }
 raml-console article#raml-console .connect.method-summary,
 #raml-console-loader .connect.method-summary {
   background-color: #f3f3f6;
+  border: none;
 }
 raml-console article#raml-console .connect.method-summary:hover,
 #raml-console-loader .connect.method-summary:hover {
@@ -3414,7 +3567,6 @@ raml-console article#raml-console .method-name,
 #raml-console-loader .method-name {
   font-size: 10px;
   text-transform: uppercase;
-  color: #f3f3f6;
   text-align: center;
   display: inline-block;
   width: 60px;
@@ -3454,7 +3606,7 @@ raml-console article#raml-console .method-summary,
 raml-console article#raml-console .method-summary .filler,
 #raml-console-loader .method-summary .filler {
   display: block;
-  height: 30px;
+  height: 32px;
   width: auto;
 }
 raml-console article#raml-console .method-summary .description,
@@ -3463,8 +3615,8 @@ raml-console article#raml-console .method-summary .description,
   border: 1px solid #c0c2c9;
   border-left: none;
   border-radius: 0 5px 5px 0;
-  height: 28px;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -3482,7 +3634,7 @@ raml-console article#raml-console .method-summary i,
   top: 0;
   right: 10px;
   color: #c0c2c9;
-  line-height: 30px;
+  line-height: 32px;
   font-size: 19px;
 }
 raml-console article#raml-console .method-summary:before,
