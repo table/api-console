@@ -3141,11 +3141,12 @@ raml-console article#raml-console .resource .summary .path,
 #raml-console-loader .resource .summary .path {
   float: left;
   margin: 14px 0 14px 15px;
+  color: #a2a4aa;
 }
 raml-console article#raml-console .resource .summary .path span:last-child,
 #raml-console-loader .resource .summary .path span:last-child {
   font-weight: bold;
-  color: #18191d;
+  color: #c75016;
 }
 raml-console article#raml-console .resource .summary:before,
 #raml-console-loader .resource .summary:before,
@@ -3182,6 +3183,7 @@ raml-console article#raml-console ul.modifiers,
 #raml-console-loader ul.modifiers {
   font-size: 0px;
   margin-left: 15px;
+  text-align: right;
 }
 raml-console article#raml-console ul.modifiers li,
 #raml-console-loader ul.modifiers li {
