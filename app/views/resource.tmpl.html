@@ -3,11 +3,11 @@
 
   <div class='summary accordion-toggle' role='resource-summary' ng-click='resourceView.toggleExpansion()'>
     <ul class="modifiers">
-      <li class="resource-type" role="resource-type" ng-if='resourceView.type()'>
-        {{resourceView.type()|nameFromParameterizable}}
-      </li>
-      <li class="trait" role="trait" ng-repeat="trait in resourceView.traits()">
+      <li class="trait" ng-show='resourceView.expanded' role="trait" ng-repeat="trait in resourceView.traits()">
         {{trait|nameFromParameterizable}}
+      </li>
+      <li class="resource-type" role="resource-type" ng-if='resourceView.type()' ng-show='resourceView.expanded'>
+        {{resourceView.type()|nameFromParameterizable}}
       </li>
     </ul>
 

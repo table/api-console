@@ -10021,10 +10021,6 @@ angular.module("ramlConsoleApp").run(["$templateCache", function($templateCache)
   $templateCache.put("views/api_resources.tmpl.html",
     "<div id=\"raml-console-api-reference\" role=\"resources\">\n" +
     "  <div collapsible role=\"resource-group\" class=\"resource-group\" ng-repeat=\"resourceGroup in api.resourceGroups\">\n" +
-    "    <h1 collapsible-toggle class='path'>\n" +
-    "      {{resourceGroup[0].pathSegments[0].toString()}}\n" +
-    "      <i ng-class=\"{'icon-caret-right': collapsed, 'icon-caret-down': !collapsed}\"></i>\n" +
-    "    </h1>\n" +
     "\n" +
     "    <div collapsible-content>\n" +
     "      <resource ng-repeat=\"resource in resourceGroup\"></resource>\n" +
@@ -10225,11 +10221,11 @@ angular.module("ramlConsoleApp").run(["$templateCache", function($templateCache)
     "\n" +
     "  <div class='summary accordion-toggle' role='resource-summary' ng-click='resourceView.toggleExpansion()'>\n" +
     "    <ul class=\"modifiers\">\n" +
-    "      <li class=\"resource-type\" role=\"resource-type\" ng-if='resourceView.type()'>\n" +
-    "        {{resourceView.type()|nameFromParameterizable}}\n" +
-    "      </li>\n" +
-    "      <li class=\"trait\" role=\"trait\" ng-repeat=\"trait in resourceView.traits()\">\n" +
+    "      <li class=\"trait\" ng-show='resourceView.expanded' role=\"trait\" ng-repeat=\"trait in resourceView.traits()\">\n" +
     "        {{trait|nameFromParameterizable}}\n" +
+    "      </li>\n" +
+    "      <li class=\"resource-type\" role=\"resource-type\" ng-if='resourceView.type()' ng-show='resourceView.expanded'>\n" +
+    "        {{resourceView.type()|nameFromParameterizable}}\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +

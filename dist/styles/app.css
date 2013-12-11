@@ -2592,6 +2592,10 @@ raml-console article#raml-console [markdown] code,
   display: inline-block;
   padding: 0 3px;
 }
+raml-console article#raml-console .resource-group,
+#raml-console-loader .resource-group {
+  margin-top: 20px;
+}
 raml-console article#raml-console [markdown],
 #raml-console-loader [markdown] {
   line-height: 17px;

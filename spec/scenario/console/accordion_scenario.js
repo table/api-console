@@ -48,18 +48,6 @@ describe("accordion view of API", function() {
 
         methodsPromise = resources[2].$$(methodSummarySelector);
         expect(methodsPromise).toHaveLength(1);
-
-        var traitsPromise = resources[2].$$('li[role="trait"]')
-        expect(traitsPromise).toHaveLength(1);
-        traitsPromise.then(function(traits) {
-          expect(traits[0].getText()).toEqual('secured');
-        });
-
-        var resourceTypesPromise = resources[2].$$('[role="resource-type"]');
-        expect(resourceTypesPromise).toHaveLength(1);
-        resourceTypesPromise.then(function(resourceType) {
-          expect(resourceType[0].getText()).toMatch(/^collection$/i);
-        });
       });
     });
   });
@@ -140,35 +128,6 @@ describe("accordion view of API", function() {
       description = resource.$('[role="method"] [role="full-description"]');
 
       expect(description.getText()).toEqual('Get all resources')
-    });
-  });
-
-  describe("resource grouping", function() {
-    raml = createRAML(
-      'title: Example API',
-      'baseUri: http://www.example.com',
-      '/posts:',
-      '  get:',
-      '    description: Get all resources',
-      '/comments:',
-      '  post:',
-      '/comments/{commentId}:',
-      '  get:',
-      '/something{weird}:',
-      '  put:'
-    );
-
-   loadRamlFixture(raml);
-
-    it("groups resources by their first path segment", function() {
-      var resourceGroups = ptor.$$('[role="resource-group"]');
-
-      expect(resourceGroups).toHaveLength(3);
-
-      resourceGroups.then(function(groups) {
-
-        expect(groups[2].$(".path").getText()).toEqual('/something{weird}');
-      });
     });
   });
 });
