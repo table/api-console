@@ -1,14 +1,10 @@
 .method-color(@color) {
-  background-color: tint(@color, 15%);
+  background-color: tint(@color, 30%);
   border-color:     tint(@color, 15%);
 
-  &:hover {
-    background-color: @color;
-  }
-
   &.method {
-    .method-name:hover, .filler:hover {
-      background-color: tint(@color, 15%);
+    .method-name:hover{
+      background-color: @color;
     }
   }
 
@@ -21,15 +17,9 @@
   }
 }
 
-.get      { .method-color(@cornflower); }
-.post     { .method-color(@green);      }
-.put      { .method-color(@aqua);       }
-.patch    { .method-color(@mustard);    }
-.delete   { .method-color(@red);        }
-.head     { .method-color(@purple);     }
-.options  { .method-color(@limeGreen);  }
-.trace    { .method-color(@skyBlue);    }
-.connect  { .method-color(@gold);       }
+.get, .post, .put, .patch, .delete, .head, .options, .trace, .connect {
+  .method-color(@gray);
+}
 
 .method-name {
   font-size: 10px;
