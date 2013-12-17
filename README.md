@@ -16,7 +16,7 @@ There are two ways you can include the console: directly, or within an iframe. T
           …
           <link rel="stylesheet" href="path/to/dist/styles/app.css" type="text/css" />
         </head>
-        <body>
+        <body ng-app="ramlConsoleApp" ng-cloak id="raml-console-unembedded">
           …
           <script src="path/to/dist/scripts/vendor.js"></script>
           <script src="path/to/dist/scripts/app.js"></script>
@@ -91,8 +91,10 @@ To run the console, you'll need the following:
 
 ### First Time Setup
 
-1. Install the console's packages - `npm install .`
-2. Install grunt-cli globally - `npm install grunt-cli -g`
+1. Install grunt-cli globally - `npm install -g grunt-cli`
+2. Install bower globally - `npm install -g bower`
+3. Install the console's NPM packages - `npm install`
+4. Install the console's Bower packages - `bower install`
 
 ### Running the server
 

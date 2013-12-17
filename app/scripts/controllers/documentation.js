@@ -1,15 +1,11 @@
 (function() {
   'use strict';
 
-  function isEmpty(object) {
-    return Object.keys(object || {}).length === 0;
-  }
-
   var FORM_MIME_TYPES = ['application/x-www-form-urlencoded', 'multipart/form-data'];
 
   function hasFormParameters(method) {
     return FORM_MIME_TYPES.some(function(type) {
-      return method.body && method.body[type] && !isEmpty(method.body[type].formParameters);
+      return method.body && method.body[type] && !RAML.Utils.isEmpty(method.body[type].formParameters);
     });
   }
 
@@ -19,18 +15,24 @@
     this.resource = $scope.resource;
     this.method = $scope.method;
 
-    this.hasResponseDocumentation = !isEmpty(this.method.responses);
+    this.hasResponseDocumentation = !RAML.Utils.isEmpty(this.method.responses);
     this.hasTryIt = !!$scope.api.baseUri;
   };
 
+  controller.prototype.hasUriParameters = function() {
+    return this.resource.pathSegments.some(function(segment) {
+      return segment.templated;
+    });
+  };
+
   controller.prototype.hasParameters = function() {
-    return !!(this.resource.uriParameters || this.method.queryParameters ||
-      this.method.headers || hasFormParameters(this.method));
+    return !!(this.hasUriParameters() || this.method.queryParameters ||
+      !RAML.Utils.isEmpty(this.method.headers.plain) || hasFormParameters(this.method));
   };
 
   controller.prototype.hasRequestDocumentation = function() {
-    return this.hasParameters() || !isEmpty(this.method.body);
-  }
+    return this.hasParameters() || !RAML.Utils.isEmpty(this.method.body);
+  };
 
   controller.prototype.traits = function() {
     return (this.method.is || []);

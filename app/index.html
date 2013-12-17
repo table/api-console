@@ -42,26 +42,35 @@
     <raml-console with-root-documentation></raml-console>
 
     <!-- build:js({.tmp,app}) scripts/vendor.min.js -->
-    <script src="vendor/angular.js"></script>
-    <script src="vendor/angular-resource.js"></script>
-    <script src="vendor/angular-sanitize.js"></script>
+    <script src="vendor/bower_components/vkbeautify/vkbeautify.js"></script>
+    <script src="vendor/bower_components/angular/angular.js"></script>
+    <script src="vendor/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="vendor/jquery.js"></script>
     <script src="vendor/bower_components/raml-js-parser/dist/raml-parser.js"></script>
-    <script src="vendor/showdown.min.js"></script>
-    <script src="vendor/showdown-table.min.js"></script>
-    <script src="vendor/codemirror/codemirror.js"></script>
-    <script src="vendor/codemirror/xml.js"></script>
-    <script src="vendor/codemirror/javascript.js"></script>
+    <script src="vendor/bower_components/crypto-js/rollups/hmac-sha1.js"></script>
+    <script src="vendor/bower_components/crypto-js/components/enc-base64.js"></script>
+    <script src="vendor/bower_components/showdown/src/showdown.js"></script>
+    <script src="vendor/bower_components/showdown/src/extensions/table.js"></script>
+    <script src="vendor/bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="vendor/bower_components/codemirror/mode/xml/xml.js"></script>
+    <script src="vendor/bower_components/codemirror/mode/javascript/javascript.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/app.min.js -->
-    <script src="vendor/jquery.js"></script>
-    <script src="vendor/vkbeautify.0.99.00.beta.js"></script>
     <script src="scripts/inspector.js"></script>
+    <script src="scripts/inspector/method.js"></script>
+    <script src="scripts/inspector/parameterized_header.js"></script>
     <script src="scripts/client.js"></script>
     <script src="scripts/client/auth_strategies.js"></script>
     <script src="scripts/client/auth_strategies/anonymous.js"></script>
-    <script src="scripts/client/auth_strategies/base64.js"></script>
     <script src="scripts/client/auth_strategies/basic_auth.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1/request_authorization.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1/request_temporary_credentials.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1/request_token_credentials.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1/signer.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1/signer/hmac.js"></script>
+    <script src="scripts/client/auth_strategies/oauth1/signer/plaintext.js"></script>
     <script src="scripts/client/auth_strategies/oauth2.js"></script>
     <script src="scripts/client/auth_strategies/oauth2/create_token.js"></script>
     <script src="scripts/client/auth_strategies/oauth2/credentials_manager.js"></script>
@@ -80,9 +89,13 @@
     <script src="scripts/controllers/raml_console.js"></script>
     <script src="scripts/controllers/tabset.js"></script>
     <script src="scripts/controllers/try_it.js"></script>
+    <script src="scripts/controllers/try_it/body_content.js"></script>
+    <script src="scripts/controllers/try_it/body_type.js"></script>
+    <script src="scripts/controllers/try_it/named_parameters.js"></script>
     <script src="scripts/directives.js"></script>
     <script src="scripts/directives/api_resources.js"></script>
     <script src="scripts/directives/basic_auth.js"></script>
+    <script src="scripts/directives/body_content.js"></script>
     <script src="scripts/directives/code_mirror.js"></script>
     <script src="scripts/directives/collapsible.js"></script>
     <script src="scripts/directives/documentation.js"></script>
@@ -91,8 +104,10 @@
     <script src="scripts/directives/method.js"></script>
     <script src="scripts/directives/named_parameters.js"></script>
     <script src="scripts/directives/named_parameters_documentation.js"></script>
+    <script src="scripts/directives/oauth1.js"></script>
     <script src="scripts/directives/oauth2.js"></script>
     <script src="scripts/directives/parameter_fields.js"></script>
+    <script src="scripts/directives/parameterized_parameter.js"></script>
     <script src="scripts/directives/parameters.js"></script>
     <script src="scripts/directives/path_builder.js"></script>
     <script src="scripts/directives/raml_console.js"></script>
@@ -111,6 +126,7 @@
     <script src="scripts/services.js"></script>
     <script src="scripts/services/raml_parser_wrapper.js"></script>
     <script src="scripts/settings.js"></script>
+    <script src="scripts/utils.js"></script>
     <script src="scripts/raml.js"></script>
     <script src="scripts/raml_console.js"></script>
     <!-- endbuild -->

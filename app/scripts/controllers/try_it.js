@@ -1,26 +1,6 @@
 'use strict';
 
 (function() {
-  function isEmpty(object) {
-    if (object) {
-      return Object.keys(filterEmpty(object)).length === 0;
-    } else {
-      return true;
-    }
-  }
-
-  function filterEmpty(object) {
-    var copy = {};
-
-    Object.keys(object).forEach(function(key) {
-      if (object[key] && (typeof object[key] !== 'string' || object[key].trim().length > 0)) {
-        copy[key] = object[key];
-      }
-    });
-
-    return copy;
-  }
-
   function parseHeaders(headers) {
     var parsed = {}, key, val, i;
 
@@ -45,34 +25,22 @@
     return parsed;
   }
 
-  var FORM_URLENCODED = 'application/x-www-form-urlencoded';
-  var FORM_DATA = 'multipart/form-data';
   var apply;
 
   var TryIt = function($scope) {
+    this.context = $scope.context = {};
+    this.context.headers = new RAML.Controllers.TryIt.NamedParameters($scope.method.headers.plain, $scope.method.headers.parameterized);
+    this.context.queryParameters = new RAML.Controllers.TryIt.NamedParameters($scope.method.queryParameters);
+    if ($scope.method.body) {
+      this.context.bodyContent = new RAML.Controllers.TryIt.BodyContent($scope.method.body);
+    }
+
     this.getPathBuilder = function() {
       return $scope.pathBuilder;
     };
 
     this.method = $scope.method;
     this.httpMethod = $scope.method.method;
-    this.headers = {};
-    this.queryParameters = {};
-    this.formParameters = {};
-    this.supportsCustomBody = this.supportsFormUrlencoded = this.supportsFormData = false;
-
-    for (var mediaType in $scope.method.body) {
-      this.mediaType = this.mediaType || mediaType;
-      this.supportsMediaType = true;
-
-      if (mediaType === FORM_URLENCODED) {
-        this.supportsFormUrlencoded = true;
-      } else if (mediaType === FORM_DATA) {
-        this.supportsFormData = true;
-      } else {
-        this.supportsCustomBody = true;
-      }
-    }
 
     $scope.apiClient = this;
     this.parsed = $scope.api;
@@ -84,37 +52,8 @@
     };
   };
 
-  TryIt.prototype.showBody = function() {
-    return this.supportsCustomBody && !this.showUrlencodedForm() && !this.showMultipartForm();
-  };
-
-  TryIt.prototype.showUrlencodedForm = function() {
-    if (this.mediaType) {
-      return this.mediaType === FORM_URLENCODED;
-    } else {
-      return (!this.supportsCustomBody && this.supportsFormUrlencoded);
-    }
-  };
-
-  TryIt.prototype.showMultipartForm = function() {
-    if (this.mediaType) {
-      return this.mediaType === FORM_DATA;
-    } else  {
-      return (!this.supportsCustomBody && !this.supportsFormUrlencoded && this.supportsFormData);
-    }
-  };
-
   TryIt.prototype.inProgress = function() {
     return (this.response && !this.response.status && !this.missingUriParameters);
-  };
-
-  TryIt.prototype.fillBody = function($event) {
-    $event.preventDefault();
-    this.body = this.method.body[this.mediaType].example;
-  };
-
-  TryIt.prototype.bodyHasExample = function() {
-    return !!this.method.body[this.mediaType];
   };
 
   TryIt.prototype.execute = function() {
@@ -145,24 +84,17 @@
       }
       var request = RAML.Client.Request.create(url, this.httpMethod);
 
-      if (!isEmpty(this.queryParameters)) {
-        request.data(filterEmpty(this.queryParameters));
+      if (!RAML.Utils.isEmpty(this.context.queryParameters.data())) {
+        request.queryParams(this.context.queryParameters.data());
       }
 
-      if (!isEmpty(this.formParameters)) {
-        request.data(filterEmpty(this.formParameters));
+      if (!RAML.Utils.isEmpty(this.context.headers.data())) {
+        request.headers(this.context.headers.data());
       }
 
-      if (!isEmpty(this.headers)) {
-        request.headers(filterEmpty(this.headers));
-      }
-
-      if (this.mediaType) {
-        request.header('Content-Type', this.mediaType);
-      }
-
-      if (this.showBody()) {
-        request.data(this.body);
+      if (this.context.bodyContent) {
+        request.header('Content-Type', this.context.bodyContent.selected);
+        request.data(this.context.bodyContent.data());
       }
 
       var authStrategy;

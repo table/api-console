@@ -168,14 +168,15 @@ describe("RAML.Controllers.tryIt", function() {
       '  get:',
       '    queryParameters:',
       '      page:',
-      '      order:'
+      '      order:',
+      '        required: true'
     )
 
     parseRAML(raml);
 
     mockHttp(function(mock) {
       mock
-        .when("get", 'http://www.example.com/resource', { page: "1", order: "newest" })
+        .when("get", 'http://www.example.com/resource?order=newest')
         .respondWith(200, "cool");
     });
 
@@ -185,7 +186,6 @@ describe("RAML.Controllers.tryIt", function() {
     });
 
     it('executes a request with the provided values', function() {
-      $el.find('input[name=page]').fillIn('1');
       $el.find('input[name=order]').fillIn('newest');
       $el.find('button[role="try-it"]').click();
 
@@ -193,6 +193,11 @@ describe("RAML.Controllers.tryIt", function() {
         expect($el.find('.response .status .response-value')).toHaveText('200');
         expect($el.find('.response .body .response-value')).toHaveText('cool');
       });
+    });
+
+    it("gives a visual cue for required parameters", function() {
+      expect($el.find('label[for="order"]')).toContain("*");
+      expect($el.find('label[for="page"]')).not.toContain("*");
     });
   });
 
@@ -225,13 +230,13 @@ describe("RAML.Controllers.tryIt", function() {
       });
 
       it('selects a mime type', function() {
-        expect($el.find('.media-types input:checked').length).toEqual(1);
+        expect($el.find('[role="media-types"] input:checked').length).toEqual(1);
       });
 
       it('executes a request with the Content-Type header set to the chosen media type', function() {
         var suppliedBody = '<document type="xml" />';
 
-        $el.find('.media-types input[value="text/xml"]')[0].click();
+        $el.find('[role="media-types"] input[value="text/xml"]')[0].click();
         $el.find('textarea').fillIn(suppliedBody);
         $el.find('button[role="try-it"]').click();
 
@@ -253,12 +258,12 @@ describe("RAML.Controllers.tryIt", function() {
       beforeEach(function() {
         var suppliedBody = '<document type="xml" />';
 
-        $el.find('.media-types input[value="text/xml"]')[0].click();
+        $el.find('[role="media-types"] input[value="text/xml"]')[0].click();
         $el.find('textarea').fillIn(suppliedBody);
       });
 
       it('executes a request with form data when the user changes modes', function() {
-        $el.find('.media-types input[value="application/x-www-form-urlencoded"]')[0].click();
+        $el.find('[role="media-types"] input[value="application/x-www-form-urlencoded"]')[0].click();
 
         $el.find('input[name="foo"]').fillIn("whatever");
         $el.find('button[role="try-it"]').click();

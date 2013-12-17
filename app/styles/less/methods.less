@@ -32,21 +32,29 @@
 .connect  { .method-color(@gold);       }
 
 .method-name {
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   color: @veryLightGray;
   text-align: center;
   display: inline-block;
 
-  width: 64px;
+  width: 60px;
 }
 
 .method {
-  margin: 10px 15px;
+  margin: 10px 0px;
   border-radius: 0 5px 5px 0;
   overflow: hidden;
   border-width: 1px;
   border-style: solid;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 15px;
+  }
 
   &.collapsed {
     border: none;
@@ -71,24 +79,15 @@
   cursor: pointer;
   position: relative;
 
-  .filler {
-    display: block;
-    height: 30px;
-    width: auto;
+  .abbreviated-description {
+    padding: 0 20px 0 10px;
+    .inline-markdown(28px);
   }
 
-  .description {
-    padding: 0 20px 0 10px;
-    border: 1px solid @lightGray;
-    border-left: none;
-    border-radius: 0 5px 5px 0;
-    height: 28px;
-    line-height: 28px;
+  .filler {
     display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: middle;
+    height: 32px;
+    width: auto;
   }
 
   .method-name {
@@ -101,7 +100,7 @@
     top: 0;
     right: 10px;
     color: @lightGray;
-    line-height: 30px;
+    line-height: 32px;
     font-size: 19px;
   }
 
