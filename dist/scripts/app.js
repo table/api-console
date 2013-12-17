@@ -1238,9 +1238,6 @@ RAML.Inspector = (function() {
 
     this.resource = $scope.resource;
     this.method = $scope.method;
-
-    this.hasResponseDocumentation = !RAML.Utils.isEmpty(this.method.responses);
-    this.hasTryIt = !!$scope.api.baseUri;
   };
 
   controller.prototype.hasUriParameters = function() {
@@ -1256,6 +1253,10 @@ RAML.Inspector = (function() {
 
   controller.prototype.hasRequestDocumentation = function() {
     return this.hasParameters() || !RAML.Utils.isEmpty(this.method.body);
+  };
+
+  controller.prototype.hasResponseDocumentation = function() {
+    return !RAML.Utils.isEmpty(this.method.responses);
   };
 
   controller.prototype.traits = function() {
@@ -1378,6 +1379,10 @@ RAML.Inspector = (function() {
 
   controller.prototype.gotoView = function(view) {
     this.view = view;
+  };
+
+  controller.prototype.tryItEnabled = function() {
+    return !!(this.api && this.api.baseUri);
   };
 
   controller.prototype.showRootDocumentation = function() {
@@ -2672,10 +2677,10 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
     "      <parameters></parameters>\n" +
     "      <requests></requests>\n" +
     "    </tab>\n" +
-    "    <tab role='documentation-responses' class=\"responses\" heading=\"Responses\" active='documentation.responsesActive' disabled='!documentation.hasResponseDocumentation'>\n" +
+    "    <tab role='documentation-responses' class=\"responses\" heading=\"Responses\" active='documentation.responsesActive' disabled='!documentation.hasResponseDocumentation()'>\n" +
     "      <responses></responses>\n" +
     "    </tab>\n" +
-    "    <tab role=\"try-it\" heading=\"Try It\" active=\"documentation.tryItActive\" disabled=\"!documentation.hasTryIt\">\n" +
+    "    <tab role=\"try-it\" heading=\"Try It\" active=\"documentation.tryItActive\" disabled=\"!ramlConsole.tryItEnabled()\">\n" +
     "      <try-it></try-it>\n" +
     "    </tab>\n" +
     "  </tabset>\n" +

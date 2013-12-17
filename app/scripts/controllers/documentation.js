@@ -14,9 +14,6 @@
 
     this.resource = $scope.resource;
     this.method = $scope.method;
-
-    this.hasResponseDocumentation = !RAML.Utils.isEmpty(this.method.responses);
-    this.hasTryIt = !!$scope.api.baseUri;
   };
 
   controller.prototype.hasUriParameters = function() {
@@ -32,6 +29,10 @@
 
   controller.prototype.hasRequestDocumentation = function() {
     return this.hasParameters() || !RAML.Utils.isEmpty(this.method.body);
+  };
+
+  controller.prototype.hasResponseDocumentation = function() {
+    return !RAML.Utils.isEmpty(this.method.responses);
   };
 
   controller.prototype.traits = function() {

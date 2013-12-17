@@ -29,7 +29,7 @@ describe("RAML.Controllers.Documentation", function() {
     });
 
     it('does not have responses documentation', function() {
-      expect(controller.hasResponseDocumentation).toBe(false);
+      expect(controller.hasResponseDocumentation()).toBe(false);
     });
   });
 
@@ -184,49 +184,7 @@ describe("RAML.Controllers.Documentation", function() {
     });
 
     it('has responses documentation', function() {
-      expect(controller.hasResponseDocumentation).toBe(true);
+      expect(controller.hasResponseDocumentation()).toBe(true);
     });
   });
-
-  describe("given an api that does not specify a base uri", function() {
-    var raml = createRAML(
-      'title: Example API',
-      'baseUri: http://example.com',
-      'version: v5',
-      '/resource:',
-      '  get:'
-    );
-
-    parseRAML(raml);
-
-    beforeEach(function() {
-      scope = createScopeForDocumentationController(this.api);
-      controller = new RAML.Controllers.Documentation(scope);
-    });
-
-    it("has try it", function() {
-      expect(controller.hasTryIt).toBe(true);
-    });
-  });
-
-  describe("given an api that does not specify a base uri", function() {
-    var raml = createRAML(
-      'title: Example API',
-      'version: v5',
-      '/resource:',
-      '  get:'
-    );
-
-    parseRAML(raml);
-
-    beforeEach(function() {
-      scope = createScopeForDocumentationController(this.api);
-      controller = new RAML.Controllers.Documentation(scope);
-    });
-
-    it("does not have try it", function() {
-      expect(controller.hasTryIt).toBe(false);
-    });
-  });
-
 });
