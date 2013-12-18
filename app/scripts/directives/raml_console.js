@@ -1,13 +1,14 @@
 (function() {
   'use strict';
 
-  RAML.Directives.ramlConsole = function(ramlParserWrapper) {
+  RAML.Directives.ramlConsole = function(ramlParserWrapper, ExpandoState) {
 
     var link = function ($scope, $el, $attrs, controller) {
       ramlParserWrapper.onParseSuccess(function(raml) {
         var inspected = RAML.Inspector.create(raml);
 
         $scope.api = controller.api = inspected;
+        ExpandoState.cleanYoSelf(inspected);
       });
 
       ramlParserWrapper.onParseError(function(error) {

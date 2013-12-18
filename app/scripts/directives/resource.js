@@ -7,7 +7,7 @@
     this.ExpandoState = ExpandoState;
 
     var expandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
-    this.expanded = ExpandoState.get(expandoKey)
+    this.expanded = ExpandoState.get(expandoKey);
   };
 
   controller.prototype.expandInitially = function(method) {

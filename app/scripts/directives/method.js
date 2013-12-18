@@ -9,7 +9,7 @@
     this.expandoKey = resourceExpandoKey + this.method.method;
 
     this.ExpandoState = ExpandoState;
-    this.expanded = ExpandoState.get(this.expandoKey)
+    this.expanded = ExpandoState.get(this.expandoKey);
   };
 
   controller.prototype.toggleExpansion = function(evt) {

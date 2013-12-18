@@ -1694,6 +1694,7 @@ RAML.Inspector = (function() {
   'use strict';
 
   RAML.Directives.apiResources = function() {
+
     return {
       restrict: 'E',
       templateUrl: 'views/api_resources.tmpl.html',
@@ -2134,13 +2135,14 @@ RAML.Inspector = (function() {
 (function() {
   'use strict';
 
-  RAML.Directives.ramlConsole = function(ramlParserWrapper) {
+  RAML.Directives.ramlConsole = function(ramlParserWrapper, ExpandoState) {
 
     var link = function ($scope, $el, $attrs, controller) {
       ramlParserWrapper.onParseSuccess(function(raml) {
         var inspected = RAML.Inspector.create(raml);
 
         $scope.api = controller.api = inspected;
+        ExpandoState.cleanYoSelf(inspected);
       });
 
       ramlParserWrapper.onParseError(function(error) {
@@ -2456,6 +2458,22 @@ RAML.Filters = {};
       },
       set: function(key, value) {
         state[key] = value;
+      },
+      cleanYoSelf: function(inspector) {
+        var cleaned = {};
+
+        inspector.resources.forEach(function(resource) {
+          var key = resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+          if (state[key]) {
+            cleaned[key] = state[key];
+            resource.methods.forEach(function(method) {
+              var moreKey = key + method.method;
+              cleaned[moreKey] = state[moreKey];
+            });
+          }
+        });
+
+        state = cleaned;
       }
     }
   };
