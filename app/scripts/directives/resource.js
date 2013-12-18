@@ -1,9 +1,13 @@
 (function() {
   'use strict';
 
-  var controller = function($scope) {
+  var controller = function($scope, ExpandoState) {
     $scope.resourceView = this;
     this.resource = $scope.resource;
+    this.ExpandoState = ExpandoState;
+
+    var expandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+    this.expanded = ExpandoState.get(expandoKey)
   };
 
   controller.prototype.expandInitially = function(method) {
@@ -20,6 +24,9 @@
 
   controller.prototype.toggleExpansion = function() {
     this.expanded = !this.expanded;
+    var expandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+
+    this.ExpandoState.set(expandoKey, this.expanded);
   };
 
   controller.prototype.type = function() {

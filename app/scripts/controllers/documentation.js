@@ -14,6 +14,8 @@
 
     this.resource = $scope.resource;
     this.method = $scope.method;
+    var resourceExpandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+    this.expandoKey = resourceExpandoKey + this.method.method;
   };
 
   controller.prototype.hasUriParameters = function() {

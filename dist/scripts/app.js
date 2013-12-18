@@ -1253,6 +1253,8 @@ RAML.Inspector = (function() {
 
     this.resource = $scope.resource;
     this.method = $scope.method;
+    var resourceExpandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+    this.expandoKey = resourceExpandoKey + this.method.method;
   };
 
   controller.prototype.hasUriParameters = function() {
@@ -1376,27 +1378,36 @@ RAML.Inspector = (function() {
 
 (function() {
 
-  var controller = function($scope) {
+  var controller = function($scope, ExpandoState) {
     this.tabs = $scope.tabs = [];
     $scope.tabset = this;
+    this.expandoKey = $scope.expandoKey;
+    this.ExpandoState = ExpandoState;
   };
 
-  controller.prototype.select = function(tab) {
+
+  controller.prototype.select = function(tab, IGNORE_ME) {
     if (tab.disabled) {
       return;
     }
     this.tabs.forEach(function(tab) {
       tab.active = false;
     });
+    if (!IGNORE_ME) {
+      this.ExpandoState.set(this.expandoKey, tab.heading);
+    }
     tab.active = true;
   };
 
   controller.prototype.addTab = function(tab) {
-    if (this.tabs.every(function(tab) { return tab.disabled; }) || tab.active) {
-      this.select(tab);
+    var state = this.ExpandoState.get(this.expandoKey);
+
+    if (this.tabs.every(function(tab) { return tab.disabled; }) || state === tab.heading || tab.active) {
+      this.select(tab, true);
     }
     this.tabs.push(tab);
   };
+
 
   RAML.Controllers.tabset = controller;
 
@@ -1683,7 +1694,6 @@ RAML.Inspector = (function() {
   'use strict';
 
   RAML.Directives.apiResources = function() {
-
     return {
       restrict: 'E',
       templateUrl: 'views/api_resources.tmpl.html',
@@ -1916,14 +1926,22 @@ RAML.Inspector = (function() {
 (function() {
   'use strict';
 
-  var controller = function($scope) {
+  var controller = function($scope, ExpandoState) {
     $scope.methodView = this;
     this.method = $scope.method;
+
+    var resourceExpandoKey = $scope.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+    this.expandoKey = resourceExpandoKey + this.method.method;
+
+    this.ExpandoState = ExpandoState;
+    this.expanded = ExpandoState.get(this.expandoKey)
   };
 
   controller.prototype.toggleExpansion = function(evt) {
     evt.preventDefault();
     this.expanded = !this.expanded;
+
+    this.ExpandoState.set(this.expandoKey, this.expanded);
   };
 
   controller.prototype.cssClass = function() {
@@ -2122,11 +2140,7 @@ RAML.Inspector = (function() {
       ramlParserWrapper.onParseSuccess(function(raml) {
         var inspected = RAML.Inspector.create(raml);
 
-        if ($scope.api) {
-          RAML.Inspector.merge(inspected, $scope.api);
-        } else {
-          $scope.api = controller.api = inspected;
-        }
+        $scope.api = controller.api = inspected;
       });
 
       ramlParserWrapper.onParseError(function(error) {
@@ -2189,9 +2203,13 @@ RAML.Inspector = (function() {
 (function() {
   'use strict';
 
-  var controller = function($scope) {
+  var controller = function($scope, ExpandoState) {
     $scope.resourceView = this;
     this.resource = $scope.resource;
+    this.ExpandoState = ExpandoState;
+
+    var expandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+    this.expanded = ExpandoState.get(expandoKey)
   };
 
   controller.prototype.expandInitially = function(method) {
@@ -2208,6 +2226,9 @@ RAML.Inspector = (function() {
 
   controller.prototype.toggleExpansion = function() {
     this.expanded = !this.expanded;
+    var expandoKey = this.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+
+    this.ExpandoState.set(expandoKey, this.expanded);
   };
 
   controller.prototype.type = function() {
@@ -2292,7 +2313,10 @@ RAML.Inspector = (function() {
       replace: true,
       transclude: true,
       controller: RAML.Controllers.tabset,
-      templateUrl: 'views/tabset.tmpl.html'
+      templateUrl: 'views/tabset.tmpl.html',
+      scope: {
+        expandoKey: '@'
+      }
     };
   };
 
@@ -2418,6 +2442,23 @@ RAML.Filters = {};
   'use strict';
 
   RAML.Services = {};
+})();
+
+(function() {
+  'use strict';
+
+  RAML.Services.ExpandoState = function() {
+    var state = {};
+
+    return {
+      get: function(key) {
+        return state[key];
+      },
+      set: function(key, value) {
+        state[key] = value;
+      }
+    }
+  };
 })();
 
 (function() {
@@ -2568,6 +2609,7 @@ RAML.Filters = {};
 
   module.controller('TryItController', RAML.Controllers.tryIt);
 
+  module.service('ExpandoState', RAML.Services.ExpandoState);
   module.service('ramlParserWrapper', RAML.Services.RAMLParserWrapper);
 
   module.filter('nameFromParameterizable', RAML.Filters.nameFromParameterizable);
@@ -2650,7 +2692,7 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
     "       markdown=\"method.description\">\n" +
     "  </div>\n" +
     "\n" +
-    "  <tabset>\n" +
+    "  <tabset expando-key='{{documentation.expandoKey}}'>\n" +
     "    <tab role='documentation-requests' heading=\"Request\" active='documentation.requestsActive' disabled=\"!documentation.hasRequestDocumentation()\">\n" +
     "      <parameters></parameters>\n" +
     "      <requests></requests>\n" +

@@ -36,6 +36,7 @@
 
   module.controller('TryItController', RAML.Controllers.tryIt);
 
+  module.service('ExpandoState', RAML.Services.ExpandoState);
   module.service('ramlParserWrapper', RAML.Services.RAMLParserWrapper);
 
   module.filter('nameFromParameterizable', RAML.Filters.nameFromParameterizable);

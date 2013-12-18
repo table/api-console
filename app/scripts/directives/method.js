@@ -1,14 +1,22 @@
 (function() {
   'use strict';
 
-  var controller = function($scope) {
+  var controller = function($scope, ExpandoState) {
     $scope.methodView = this;
     this.method = $scope.method;
+
+    var resourceExpandoKey = $scope.resource.pathSegments.map(function(segment) { return segment.toString(); }).join('');
+    this.expandoKey = resourceExpandoKey + this.method.method;
+
+    this.ExpandoState = ExpandoState;
+    this.expanded = ExpandoState.get(this.expandoKey)
   };
 
   controller.prototype.toggleExpansion = function(evt) {
     evt.preventDefault();
     this.expanded = !this.expanded;
+
+    this.ExpandoState.set(this.expandoKey, this.expanded);
   };
 
   controller.prototype.cssClass = function() {

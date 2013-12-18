@@ -7,11 +7,7 @@
       ramlParserWrapper.onParseSuccess(function(raml) {
         var inspected = RAML.Inspector.create(raml);
 
-        if ($scope.api) {
-          RAML.Inspector.merge(inspected, $scope.api);
-        } else {
-          $scope.api = controller.api = inspected;
-        }
+        $scope.api = controller.api = inspected;
       });
 
       ramlParserWrapper.onParseError(function(error) {
