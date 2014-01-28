@@ -1,3 +1,37 @@
+.resource-container {
+}
+
+.resource-container.method {
+  position: fixed;
+  width: 100%;
+  margin-top: 0;
+  top: 0;
+  height: 100vh;
+  background: #E6E7EB;
+  padding: 20px;
+  z-index: 2;
+  margin-left: -20px;
+  .box-sizing(border-box);
+  border: none;
+
+  max-height: 2000px;
+  -webkit-transition:max-height ease-in-out 0.5s;
+  transition:max-height ease-in-out 0.5s;
+
+  .resource {
+    background-color: white;
+  }
+
+  .collapse {
+    position: absolute;
+    top: 21px;
+    right: 18px;
+    font-size: 26px;
+    color: @darkGray;
+    cursor: pointer;
+  }
+}
+
 .resource {
   background-color: @veryLightGray;
   border-radius: 5px;
@@ -5,9 +39,21 @@
   margin: 5px 0;
   padding: 15px;
   padding-bottom: 0;
+  height: ~"calc(100% - 20px)";
+  display: flex;
+  flex-direction: column;
 
   &.collapsed:hover, &.expanded {
     background-color: white;
+  }
+
+  > .description, > .summary {
+    flex: 0 0 auto;
+  }
+
+  .documentation-wrapper {
+    flex: 0 1 auto;
+    overflow: auto;
   }
 
   .summary {
