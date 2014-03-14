@@ -3,12 +3,21 @@
 
   RAML.Directives.resourceDocumentation = function($window) {
     function Controller($rootScope, $scope, $element) {
-
+      $scope.resourceView = this;
       var consoleContainer = $('raml-console').parent();
       var resourceList = $('#raml-console');
 
-      $rootScope.$on('console:expand', function(event, resource, $resourceEl) {
+      this.resourceKey = function() {
+        return $scope.resource.toString();
+      };
+
+      this.methodKey = function() {
+        return this.resourceKey() + ':method';
+      };
+
+      $rootScope.$on('console:expand', function(event, resource, method, $resourceEl) {
         $scope.resource = resource;
+        $scope.selectedMethod = method;
         $window.addEventListener('keydown', closeOnEscape);
 
         var placeholder = $element[0].querySelector('.resource-placeholder');
@@ -25,9 +34,9 @@
           angular.element(container).addClass('grow-expansion-animation');
 
           setTimeout(function() {
-           angular.element(container).css('height', consoleContainer[0].clientHeight - 10 + 'px');
-           container.style.top = consoleContainer[0].scrollTop + 5 + 'px';
-           angular.element(placeholder).addClass('masked');
+            angular.element(container).css('height', consoleContainer[0].clientHeight - 10 + 'px');
+            container.style.top = consoleContainer[0].scrollTop + 5 + 'px';
+            angular.element(placeholder).addClass('masked');
           });
         });
 
@@ -61,7 +70,9 @@
       restrict: 'E',
       templateUrl: 'views/resource_documentation.tmpl.html',
       controller: Controller,
-      scope: { }
+      scope: {
+        ramlConsole: '='
+      }
     };
   };
 })();

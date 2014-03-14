@@ -38,11 +38,20 @@ raml-console article#raml-console, #raml-console-loader {
     opacity: 0;
 
     .resource-container {
+      display: flex;
+      flex-direction: column;
       position: relative;
       width: 100%;
       background-color: white;
+      border-radius: 3px;
+
       &.grow-expansion-animation {
         transition: height 1s, top 1s;
+      }
+
+      .resource {
+        display: flex;
+        border: none;
       }
     }
   }

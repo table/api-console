@@ -11,8 +11,8 @@
 
     this.expanded = this.DataStore.get(this.resourceKey());
 
-    this.prepareForAnimation = function() {
-      $scope.$emit('console:expand', $scope.resource, $element);
+    this.prepareForAnimation = function(method) {
+      $scope.$emit('console:expand', $scope.resource, method, $element);
     }
 
     this.expandMethod = function(method) {

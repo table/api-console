@@ -1540,8 +1540,8 @@ RAML.Inspector = (function() {
 
     this.expanded = this.DataStore.get(this.resourceKey());
 
-    this.prepareForAnimation = function() {
-      $scope.$emit('console:expand', $scope.resource, $element);
+    this.prepareForAnimation = function(method) {
+      $scope.$emit('console:expand', $scope.resource, method, $element);
     }
 
     this.expandMethod = function(method) {
@@ -2746,45 +2746,66 @@ RAML.Inspector = (function() {
 
   RAML.Directives.resourceDocumentation = function($window) {
     function Controller($rootScope, $scope, $element) {
+      $scope.resourceView = this;
       var consoleContainer = $('raml-console').parent();
       var resourceList = $('#raml-console');
 
-      function closeOnEscape(e) {
-        if (e.which === 27) {
-          e.preventDefault();
-          $scope.resource = undefined;
-          $window.removeEventListener('keydown', closeOnEscape);
-          $scope.$digest();
-          consoleContainer.css('overflow', 'auto');
-        }
-      }
+      this.resourceKey = function() {
+        return $scope.resource.toString();
+      };
 
-      $rootScope.$on('console:expand', function(event, resource, $resourceEl) {
+      this.methodKey = function() {
+        return this.resourceKey() + ':method';
+      };
+
+      $rootScope.$on('console:expand', function(event, resource, method, $resourceEl) {
         $scope.resource = resource;
+        $scope.selectedMethod = method;
         $window.addEventListener('keydown', closeOnEscape);
+
+        var placeholder = $element[0].querySelector('.resource-placeholder');
+        var container = $element[0].querySelector('.resource-container');
+        var rect = $resourceEl[0].getBoundingClientRect();
+
         consoleContainer.css('overflow', 'hidden');
         angular.element($element[0].querySelector('.resource-placeholder')).css('height', resourceList.css('height'));
-        angular.element($element[0].querySelector('.resource-container')).css('transition', 'height 1s, top 1s')
-        // console.log(consoleContainer.css('height'));
 
         setTimeout(function() {
-          var placeholder = $element[0].querySelector('.resource-placeholder');
-          var container = $element[0].querySelector('.resource-container');
-          var rect = $resourceEl[0].getBoundingClientRect();
-
           container.style.top = consoleContainer[0].scrollTop + rect.top - consoleContainer[0].offsetTop + 'px';
           container.style.bottom = consoleContainer[0].scrollTop + rect.bottom + 'px';
           container.style.height = rect.bottom - rect.top + 'px';
-          angular.element(placeholder).addClass('test-thing');
+          angular.element(container).addClass('grow-expansion-animation');
 
           setTimeout(function() {
-           // angular.element(container).addClass('grow-container');
-           angular.element(container).css('height', consoleContainer.css('height'));
-           console.log(consoleContainer[0].scrollTop);
-           container.style.top = consoleContainer[0].scrollTop + 'px';
-           // container.style.bottom = '';
+            angular.element(container).css('height', consoleContainer[0].clientHeight - 10 + 'px');
+            container.style.top = consoleContainer[0].scrollTop + 5 + 'px';
+            angular.element(placeholder).addClass('masked');
           });
         });
+
+        function closeOnEscape(e) {
+          if (e.which === 27) {
+            e.preventDefault();
+            closePopover();
+          }
+        }
+
+        function closePopover(e) {
+          container.style.top = consoleContainer[0].scrollTop + rect.top - consoleContainer[0].offsetTop + 'px';
+          container.style.bottom = consoleContainer[0].scrollTop + rect.bottom + 'px';
+          container.style.height = rect.bottom - rect.top + 'px';
+
+          setTimeout(function() {
+            consoleContainer.css('overflow', 'auto');
+            angular.element(placeholder).removeClass('masked');
+
+            setTimeout(function() {
+              $window.removeEventListener('keydown', closeOnEscape);
+              angular.element(container).removeClass('grow-expansion-animation');
+              $scope.$apply('resource = undefined');
+            }, 1000);
+          });
+        }
       });
     }
 
@@ -2792,7 +2813,9 @@ RAML.Inspector = (function() {
       restrict: 'E',
       templateUrl: 'views/resource_documentation.tmpl.html',
       controller: Controller,
-      scope: { }
+      scope: {
+        ramlConsole: '='
+      }
     };
   };
 })();
@@ -3680,7 +3703,7 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
 
   $templateCache.put('views/raml-console.tmpl.html',
     "<article role=\"api-console\" id=\"raml-console\">\n" +
-    "  <resource-documentation></resource-documentation>\n" +
+    "  <resource-documentation raml-console=\"ramlConsole\"></resource-documentation>\n" +
     "\n" +
     "  <div role=\"error\" ng-if=\"parseError\">\n" +
     "    {{parseError}}\n" +
@@ -3747,7 +3770,7 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
     "            <span role='segment' ng-repeat='segment in resource.pathSegments'>{{segment.toString()}} </span>\n" +
     "          </h3>\n" +
     "          <ul class='methods' role=\"methods\" ng-if=\"resource.methods\">\n" +
-    "            <li class='method-name' ng-class='method.method' ng-click=\"resourceView.prepareForAnimation()\" ng-repeat=\"method in resource.methods\">{{method.method}}</li>\n" +
+    "            <li class='method-name' ng-class='method.method' ng-click=\"resourceView.prepareForAnimation(method)\" ng-repeat=\"method in resource.methods\">{{method.method}}</li>\n" +
     "          </ul>\n" +
     "        </div>\n" +
     "      </div>\n" +
@@ -3768,7 +3791,7 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
   $templateCache.put('views/resource_documentation.tmpl.html',
     "<div class=\"resource-placeholder popover mask-resource-list\" ng-show=\"resource\">\n" +
     "  <div class=\"resource-container\">\n" +
-    "    <div class=\"resource expanded\">\n" +
+    "    <div class=\"resource expanded\" ng-if=\"resource\">\n" +
     "      <div>\n" +
     "        <div class=\"summary accordion-toggle\" role=\"resource-summary\">\n" +
     "          <div class=\"modifiers expanded\">\n" +
@@ -3804,6 +3827,7 @@ angular.module('ramlConsoleApp').run(['$templateCache', function($templateCache)
     "      <method ng-repeat=\"method in resource.methods\" ng-if=\"method === selectedMethod\"></method>\n" +
     "    </div>\n" +
     "  </div>\n" +
+    "\n" +
     "</div>\n"
   );
 
