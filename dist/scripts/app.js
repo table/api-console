@@ -31,15 +31,17 @@ RAML.Inspector = (function() {
   }
 
   function groupResources(resources) {
-    var currentPrefix, resourceGroups = [];
+    var prefixes = [], resourceGroups = [];
 
     (resources || []).forEach(function(resource) {
       var prefix = resource.pathSegments[0].toString();
-      if (prefix === currentPrefix || prefix.indexOf(currentPrefix + '/') === 0) {
-        resourceGroups[resourceGroups.length-1].push(resource);
-      } else {
-        currentPrefix = resource.pathSegments[0].toString();
+      var i = prefixes.indexOf(prefix);
+      if (resource.pathSegments.length === 1 || i === -1) {
+        prefixes.push(prefix);
         resourceGroups.push([resource]);
+      }
+      else {
+        resourceGroups[i].push(resource);
       }
     });
 
